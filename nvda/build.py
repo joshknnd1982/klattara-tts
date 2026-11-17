@@ -18,7 +18,8 @@ def main():
                 ADDON / "synthDrivers" / "klatter" / "klatter.dll")
     manifest = configparser.ConfigParser()
     manifest.read_string("[addon]\n" + (ADDON / "manifest.ini").read_text(encoding="utf-8"))
-    out = ROOT / "target" / f"klatter-{manifest['addon']['version'].strip('\"')}.nvda-addon"
+    version = manifest["addon"]["version"].strip('"')
+    out = ROOT / "target" / f"klatter-{version}.nvda-addon"
     with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as z:
         for path in sorted(ADDON.rglob("*")):
             if path.is_file() and "__pycache__" not in path.parts:
